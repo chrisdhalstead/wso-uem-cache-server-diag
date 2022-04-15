@@ -67,8 +67,10 @@ else
     }
 
     Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting Cache Disk Details'
+
+    $newpath = $latestfolder.FullName+'\applicationHost.config'
    
-    [xml]$iisconfig = Get-Content 'C:\windows\System32\Inetsrv\Config\applicationHost.config'
+    [xml]$iisconfig = Get-Content $newpath
 
     $dcdrive = $iisconfig.configuration.'system.webServer'.diskCache.sharedDriveLocation.outerxml
    
