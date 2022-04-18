@@ -24,8 +24,11 @@ function RunServerDiag
 {
     $mytemp = $env:TEMP 
     $workingdir = $mytemp + "\cache-diag"
-    
     $tempdir = New-Item -Path $mytemp -Name "cache-diag" -ItemType "directory"
+
+    Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting IIS Version Information' 
+
+    Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\InetStp\*' | Out-File -FilePath $workingdir\IISversion.txt -Encoding ascii -Force
 
     Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Checking Internet Connectivity' 
    
@@ -46,7 +49,7 @@ function RunServerDiag
     
     Get-Service | Out-File -FilePath $workingdir\services.txt -Encoding ascii -Force
 
-    Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting IIS Data' 
+    Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting IIS Configuration' 
    
     $iisFolder = 'C:\inetpub\history'
 
