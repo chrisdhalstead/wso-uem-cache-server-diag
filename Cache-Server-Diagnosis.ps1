@@ -42,6 +42,10 @@ function RunServerDiag
     $certs = Get-ChildItem -path Cert:\ -Recurse
     $certs | Out-File -FilePath $workingdir\certinfo.txt -Encoding ascii -Force
 
+    Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting Services Status' 
+    
+    Get-Service | Out-File -FilePath $workingdir\services.txt -Encoding ascii -Force
+
     Write-Progress -Activity 'Collecting Cache Server Diagnostic Data' -Status 'Getting IIS Data' 
    
     $iisFolder = 'C:\inetpub\history'
